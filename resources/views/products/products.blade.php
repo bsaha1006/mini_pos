@@ -1,4 +1,4 @@
 @extends('layout.main')
 @section('main_content')
-<h2>Welcome To Home Page</h2>
+<h2>Products</h2>
 @stop
