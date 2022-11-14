@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGroupController;
@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('login',function(){
+    return view('login.form');
+});
+
 //Users
 Route::resource('users',Usercontroller::class);
 
@@ -32,5 +36,6 @@ Route::post('groups/',[UserGroupController::class,'store'])->name('groups.store'
 Route::delete('groups/{id}',[UserGroupController::class,'destroy'])->name('groups.destroy');
 
 //categories
-Route::get('categories',[ProductCategoryController::class,'index']);
-Route::get('products',[ProductController::class,'index']);
+Route::resource('categories',CategoryController::class);
+//products
+Route::resource('products',ProductController::class);
