@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -22,20 +23,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login',function(){
-    return view('login.form');
+Route::get('login',[LoginController::class,'index'])->name('login');
+Route::post('login/authenticate',[LoginController::class,'authenticate'])->name('login.auth');
+
+
+Route::group(['middleware' => 'auth'],function(){
+
+    Route::get('logout',[LoginController::class,'logout'])->name('logout');
+    //Users
+    Route::resource('users',Usercontroller::class);
+    //user groups
+    Route::get('groups',[UserGroupController::class,'index'])->name('groups');
+    Route::get('groups/create',[UserGroupController::class,'create']);
+    Route::post('groups/',[UserGroupController::class,'store'])->name('groups.store');
+    Route::delete('groups/{id}',[UserGroupController::class,'destroy'])->name('groups.destroy');
+    //categories
+    Route::resource('categories',CategoryController::class);
+    //products
+    Route::resource('products',ProductController::class);
+    
 });
 
-//Users
-Route::resource('users',Usercontroller::class);
-
-//user groups
-Route::get('groups',[UserGroupController::class,'index'])->name('groups');
-Route::get('groups/create',[UserGroupController::class,'create']);
-Route::post('groups/',[UserGroupController::class,'store'])->name('groups.store');
-Route::delete('groups/{id}',[UserGroupController::class,'destroy'])->name('groups.destroy');
-
-//categories
-Route::resource('categories',CategoryController::class);
-//products
-Route::resource('products',ProductController::class);
