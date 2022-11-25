@@ -43,4 +43,8 @@ class Admin extends Authenticatable
     ];
 
     public $timestamps=['created_at','updated_at'];
+
+    public function sales(){
+        return $this->hasMany(SaleInvoice::class);
+    }
 }

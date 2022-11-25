@@ -59,9 +59,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $this->data['user']= User::findOrFail($id);
-        return view('users.show',$this->data);
+    {   $this->data['tab_menu'] ='user';
+        $this->data['user']     = User::findOrFail($id);
+        return view('users.show.index',$this->data);
     }
 
     /**

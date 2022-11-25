@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        'date','admin_id','user_id','amount','note',
+    ];
+
+    public $timestamps=['created_at','updated_at'];
+
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
 }
